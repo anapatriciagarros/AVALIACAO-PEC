@@ -17,6 +17,12 @@ O diferencial do projeto é que o mesmo problema foi resolvido utilizando dois p
 
 A separação entre os dois paradigmas foi feita de forma clara dentro do código, permitindo comparar como cada abordagem resolve o mesmo problema.
 
+Utilizei o paradigma funcional na parte das operações sobre os dados do estoque, como cadastrar, buscar, atualizar, remover, listar e calcular o valor total. Essa parte foi implementada com funções puras, imutabilidade, map, filter e função de ordem superior.
+
+Utilizei o paradigma imperativo na parte de controle do sistema, como menu, entrada de dados, saída de mensagens, estruturas condicionais, laços de repetição e atualização da variável estoque.
+
+Dessa forma, o usuário final utiliza apenas um sistema de controle de estoque, mas internamente o código demonstra a integração entre os dois paradigmas. O paradigma funcional ficou responsável pela lógica de manipulação dos dados, enquanto o paradigma imperativo ficou responsável pelo fluxo de execução e pela interação com o usuário.
+
 ---
 
 ## Objetivo do Projeto
