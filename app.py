@@ -3,20 +3,20 @@
 # Integração dos paradigmas Imperativo e Funcional
 # ============================================================
 #
-# Para o usuário final, este é apenas um sistema único.
-# Internamente, o código foi separado em:
+# O sistema é único para o usuário final.
+# A separação entre paradigmas acontece apenas na organização interna do código.
 #
-# PARTE 01 - Paradigma Funcional:
-# - Funções puras
-# - Imutabilidade
-# - Funções de ordem superior
-# - Evita efeitos colaterais
+# Parte funcional:
+# - concentra as regras de manipulação do estoque;
+# - utiliza funções puras;
+# - evita alteração direta da lista original;
+# - usa imutabilidade, map, filter e função de ordem superior.
 #
-# PARTE 02 - Paradigma Imperativo:
-# - Variável mutável de estado
-# - Estruturas de controle
-# - Entrada e saída de dados
-# - Manipulação sequencial do fluxo do programa
+# Parte imperativa:
+# - controla o menu e o fluxo de execução;
+# - utiliza variáveis mutáveis;
+# - usa estruturas condicionais e de repetição;
+# - realiza entrada e saída de dados com input() e print().
 #
 # ============================================================
 
@@ -24,17 +24,15 @@
 # ============================================================
 # PARTE 01 - PARADIGMA FUNCIONAL
 # ============================================================
-# Aqui ficam as regras do sistema.
-# As funções recebem dados e retornam novos dados.
-# Elas não usam input(), print() nem alteram diretamente o estoque.
+# Nesta parte, as funções recebem dados, processam esses dados
+# e retornam novos valores.
+#
+# As funções principais não usam input() nem print().
+# Isso reduz efeitos colaterais e facilita a reutilização do código.
 # ============================================================
 
 def criar_produto(codigo, nome, quantidade, preco):
-    """
-    Função pura:
-    Recebe os dados do produto e retorna um novo dicionário.
-    Não altera nenhuma variável externa.
-    """
+    # Função pura: cria e retorna um novo produto.
     return {
         "codigo": codigo,
         "nome": nome,
@@ -44,20 +42,12 @@ def criar_produto(codigo, nome, quantidade, preco):
 
 
 def adicionar_produto(estoque, produto):
-    """
-    Função pura com imutabilidade:
-    Não usa append().
-    Retorna uma nova lista contendo o produto adicionado.
-    """
+    # Imutabilidade: retorna uma nova lista, sem usar append().
     return estoque + [produto]
 
 
 def buscar_produto(estoque, codigo):
-    """
-    Função pura:
-    Usa filter para buscar produtos pelo código.
-    Retorna uma lista com os produtos encontrados.
-    """
+    # Uso de filter para localizar produtos pelo código.
     return list(
         filter(
             lambda produto: produto["codigo"] == codigo,
@@ -67,12 +57,7 @@ def buscar_produto(estoque, codigo):
 
 
 def atualizar_produto(estoque, codigo, novo_nome, nova_quantidade, novo_preco):
-    """
-    Função pura:
-    Usa map para percorrer o estoque e gerar uma nova lista.
-    Se encontrar o produto pelo código, retorna uma nova versão dele.
-    Caso contrário, mantém o produto original.
-    """
+    # Uso de map para gerar uma nova lista com o produto atualizado.
 
     def atualizar(produto):
         if produto["codigo"] == codigo:
@@ -82,17 +67,14 @@ def atualizar_produto(estoque, codigo, novo_nome, nova_quantidade, novo_preco):
                 "quantidade": nova_quantidade,
                 "preco": novo_preco
             }
+
         return produto
 
     return list(map(atualizar, estoque))
 
 
 def remover_produto(estoque, codigo):
-    """
-    Função pura:
-    Usa filter para gerar uma nova lista sem o produto removido.
-    Não altera o estoque original.
-    """
+    # Uso de filter para gerar uma nova lista sem o produto removido.
     return list(
         filter(
             lambda produto: produto["codigo"] != codigo,
@@ -102,10 +84,7 @@ def remover_produto(estoque, codigo):
 
 
 def formatar_produto(produto):
-    """
-    Função pura:
-    Recebe um produto e retorna uma string formatada.
-    """
+    # Função pura: transforma os dados de um produto em texto.
     return (
         f"Código: {produto['codigo']} | "
         f"Nome: {produto['nome']} | "
@@ -115,10 +94,7 @@ def formatar_produto(produto):
 
 
 def listar_produtos_formatados(estoque):
-    """
-    Função pura:
-    Usa map para transformar a lista de produtos em uma lista de textos.
-    """
+    # Uso de map para formatar todos os produtos da lista.
     if len(estoque) == 0:
         return ["Estoque vazio."]
 
@@ -126,11 +102,7 @@ def listar_produtos_formatados(estoque):
 
 
 def calcular_valor_total_estoque(estoque):
-    """
-    Função pura:
-    Calcula o valor total do estoque sem alterar os dados.
-    Usa map e sum.
-    """
+    # Uso de map e sum para calcular o valor total do estoque.
     valores = map(
         lambda produto: produto["quantidade"] * produto["preco"],
         estoque
@@ -140,27 +112,26 @@ def calcular_valor_total_estoque(estoque):
 
 
 def aplicar_operacao(estoque, operacao):
-    """
-    Função de ordem superior:
-    Recebe uma função como parâmetro e aplica essa função ao estoque.
-    """
+    # Função de ordem superior: recebe outra função como parâmetro.
     return operacao(estoque)
 
 
 # ============================================================
 # PARTE 02 - PARADIGMA IMPERATIVO
 # ============================================================
-# Aqui fica a interação com o usuário.
-# Esta parte usa:
-# - while
-# - if, elif, else
-# - input()
-# - print()
-# - variável mutável estoque
-# - fluxo sequencial de execução
+# Nesta parte, o programa controla a execução passo a passo.
+#
+# Aqui aparecem:
+# - variável mutável;
+# - while;
+# - if, elif e else;
+# - input();
+# - print();
+# - alteração do estado do estoque ao longo da execução.
 # ============================================================
 
 def exibir_menu():
+    # Exibe as opções disponíveis para o usuário.
     print("\n========== SISTEMA DE CONTROLE DE ESTOQUE ==========")
     print("1 - Cadastrar produto")
     print("2 - Listar produtos")
@@ -172,6 +143,7 @@ def exibir_menu():
 
 
 def ler_quantidade():
+    # Estrutura imperativa para validar a entrada da quantidade.
     while True:
         try:
             quantidade = int(input("Digite a quantidade: "))
@@ -186,6 +158,7 @@ def ler_quantidade():
 
 
 def ler_preco():
+    # Estrutura imperativa para validar a entrada do preço.
     while True:
         try:
             preco = float(input("Digite o preço: "))
@@ -200,22 +173,10 @@ def ler_preco():
 
 
 def sistema_estoque():
-    """
-    Função principal do sistema.
+    # Variável mutável que representa o estado atual do estoque.
+    estoque = []
 
-    O cliente vê apenas um CRUD comum.
-    Porém, internamente, o sistema combina:
-
-    - Paradigma imperativo:
-      controla o menu, o fluxo e a variável estoque.
-
-    - Paradigma funcional:
-      executa as operações de cadastro, listagem,
-      atualização, remoção e busca por meio de funções puras.
-    """
-
-    estoque = []  # Estado mutável controlado pela parte imperativa
-
+    # Laço principal do sistema.
     while True:
         exibir_menu()
 
@@ -238,7 +199,7 @@ def sistema_estoque():
                 produto = criar_produto(codigo, nome, quantidade, preco)
 
                 # A função funcional retorna uma nova lista.
-                # A parte imperativa atualiza a variável estoque.
+                # A variável estoque recebe esse novo estado.
                 estoque = adicionar_produto(estoque, produto)
 
                 print("Produto cadastrado com sucesso!")
@@ -265,6 +226,8 @@ def sistema_estoque():
                 nova_quantidade = ler_quantidade()
                 novo_preco = ler_preco()
 
+                # Atualização feita por função pura.
+                # O estoque anterior não é alterado diretamente.
                 estoque = atualizar_produto(
                     estoque,
                     codigo,
@@ -285,7 +248,10 @@ def sistema_estoque():
             if len(produto_existente) == 0:
                 print("Produto não encontrado.")
             else:
+                # Remoção feita por função pura.
+                # Uma nova lista é atribuída à variável estoque.
                 estoque = remover_produto(estoque, codigo)
+
                 print("Produto removido com sucesso!")
 
         elif opcao == "5":
