@@ -1,0 +1,20 @@
+[
+    {
+        "codigo": "P001",
+        "nome": "Mouse sem fio",
+        "quantidade": 15,
+        "preco": 49.9
+    },
+    {
+        "codigo": "P002",
+        "nome": "Teclado USB",
+        "quantidade": 10,
+        "preco": 89.9
+    },
+    {
+        "codigo": "P003",
+        "nome": "Monitor LED 24 polegadas",
+        "quantidade": 5,
+        "preco": 699.9
+    }
+]
